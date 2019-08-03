@@ -1,7 +1,6 @@
-##该步骤同样适用其他数据库
-oracle imp 导入可以使用 ignore=y 参数进行覆盖数据库，
-创建备份路径D:\backup_path
+创建备份路径backup_path
 create or replace directory backup_path as '/usr/backup_path';
+
 expdp EPOINTBID_HNJCJY/Epointadmin_HNJY@HNZK_orcl schemas=EPOINTBID_HNJCJY directory=BACKUP_PATH dumpfile=EPOINTBID_HNJCJY081115.dmp logfile=EPOINTBID_HNJCJY081115.log version=11.2.0.1.0
 
 expdp EPOINTBID_PB7/11111@HNZK_orcl schemas=EPOINTBID_PB7 directory=BACKUP_PATH dumpfile=EPOINTBID_PB7_081115.dmp logfile=EPOINTBID_PB7_081115.log version=11.2.0.1.0
@@ -124,3 +123,5 @@ exp username/password file=XXX.dmp owner=XXX log=XXX.log
 imp OA9_2_FB/OA9_2_FB@10.63.255.5/epointcd file=D:\dump\OA9_2_FB.dmp log=D:\dump\OA9_2_FB.log fromuser=OA9_2_FB touser=OA9_2_FB
 grant dba to epointbid_jingjia;
 revoke dba from epointbid_jingjia;
+
+oracle imp 导入可以使用 ignore=y 参数进行覆盖数据库，
