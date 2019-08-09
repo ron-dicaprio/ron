@@ -22,10 +22,10 @@ impdp EPOINTBID_HNP/11111@HNZK_ORCL schemas=EPOINTBID_HNJCJY directory=backup_pa
 
 expdp EPOINTBID_JXPFJ_PB6J/11111@orcl schemas=EPOINTBID_JXPFJ_PB6J directory=EPOINTBID_TP6J dumpfile=EPOINTBID_JXPFJ_PB6J_11g.dmp logfile=EPOINTBID_JXPFJ_PB6J_11g.log version=11.1.0.6.0
 
-
+###数据库导出
 expdp EPOINTBID_HNZK/11111@orcl schemas=EPOINTBID_HNZK directory=EPOINTBID_HNZK dumpfile=EPOINTBID_HNZKbak.dmp logfile=EPOINTBID_HNZKbak.log
 
-
+####创建表空间###
 create temporary tablespace EPOINTBID_PB7_HISTORY_TEMP
 tempfile 'D:\oracledata\orcl\EPOINTBID_PB7_HISTORY.dbf'
 size 128m
@@ -40,17 +40,19 @@ autoextend on
 next 128m maxsize unlimited
 extent management local;
 
+###创建用户
 create user EPOINTBID_PB7_HISTORY identified by 111111
 default tablespace EPOINTBID_PB7_HISTORY
 temporary tablespace EPOINTBID_PB7_HISTORY_TEMP;
 
+###授权
 grant connect,resource to EPOINTBID_PB7_HISTORY;
 grant create any view to EPOINTBID_PB7_HISTORY;
 grant read,write on directory backup_path to EPOINTBID_PB7_HISTORY;
 grant unlimited tablespace to EPOINTBID_PB7_HISTORY;
 grant create job to EPOINTBID_PB7_HISTORY;
 
-
+###数据库导入
 impdp EPOINTBID_PB7_HISTORY/111111@HNZK_ORCL directory=backup_path dumpfile=EPOINTBID_PB7_190321.DMP logfile=EPOINTBID_PB7_190321.log schemas=EPOINTBID_PB7 table_exists_action=replace
 
 Impdp EPOINTBID_PB7J_EMPTY/11111@orcl directory=BACKUP_PATH dumpfile=EPOINTBID_PB7J.DMP remap_schema=EPOINTBID_PB7J:EPOINTBID_PB7J_EMPTY remap_tablespace=EPOINTBID_PB7J:EPOINTBID_PB7J_EMPTY,EPOINTBID_PB6J:EPOINTBID_PB7J_EMPTY logfile=EPOINTBID_PB7J.log table_exists_action=replace
