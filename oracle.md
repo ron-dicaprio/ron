@@ -26,7 +26,7 @@ expdp EPOINTBID_JXPFJ_PB6J/11111@orcl schemas=EPOINTBID_JXPFJ_PB6J directory=EPO
 create or replace directory backup_path as 'd:\backup_path';
 
 ###数据库导出
-expdp EPOINTBID_HNZK/11111@orcl schemas=EPOINTBID_HNZK directory=EPOINTBID_HNZK dumpfile=EPOINTBID_HNZKbak.dmp logfile=EPOINTBID_HNZKbak.log
+expdp EPOINTBID_HNZK/11111@orcl schemas=EPOINTBID_HNZK directory=backup_path dumpfile=EPOINTBID_HNZKbak.dmp logfile=EPOINTBID_HNZKbak.log
 
 ####创建表空间###
 create temporary tablespace EPOINTBID_PB7_HISTORY_TEMP
