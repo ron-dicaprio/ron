@@ -22,6 +22,9 @@ impdp EPOINTBID_HNP/11111@HNZK_ORCL schemas=EPOINTBID_HNJCJY directory=backup_pa
 
 expdp EPOINTBID_JXPFJ_PB6J/11111@orcl schemas=EPOINTBID_JXPFJ_PB6J directory=EPOINTBID_TP6J dumpfile=EPOINTBID_JXPFJ_PB6J_11g.dmp logfile=EPOINTBID_JXPFJ_PB6J_11g.log version=11.1.0.6.0
 
+###创建路径
+create or replace directory backup_path as 'd:\backup_path';
+
 ###数据库导出
 expdp EPOINTBID_HNZK/11111@orcl schemas=EPOINTBID_HNZK directory=EPOINTBID_HNZK dumpfile=EPOINTBID_HNZKbak.dmp logfile=EPOINTBID_HNZKbak.log
 
