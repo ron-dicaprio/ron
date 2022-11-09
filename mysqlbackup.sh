@@ -17,7 +17,7 @@ db_list="pydev test"
 # 用户
 MYSQL_USER="root"
 # 密码
-MYSQL_PASSWORD="@Caitao628422"
+MYSQL_PASSWORD="@password"
 # sockpath. docker下的路径
 MySQL_Socket="/var/lib/mysql/mysql.sock"
 
