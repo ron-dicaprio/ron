@@ -17,7 +17,7 @@ db_list="pydev test"
 # 用户
 MYSQL_USER="root"
 # 密码
-MYSQL_PASSWORD="@password"
+MYSQL_PASSWORD="@Caitao628422"
 # sockpath. docker下的路径
 MySQL_Socket="/var/lib/mysql/mysql.sock"
 
@@ -44,7 +44,7 @@ echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ${startbackuptime} start Backup ${db} <<<<
 
 # 记录备份结束时间
 endbackuptime=$(date +"%Y-%m-%d %H:%M:%S")
-echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ${endbackuptime} end Backup ${db} <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<" >> ${dumplog}
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ${endbackuptime} end Backup ${db_list} <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<" >> ${dumplog}
 
 # 结束for循环
 done
