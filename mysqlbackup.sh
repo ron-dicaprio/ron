@@ -51,6 +51,6 @@ done
 
 # 定期删除sql备份文件及log日志,生产慎用
 if [[ -d ${backup_path} ]];then
-	find ${backup_path} -type f -mtime +${reserve_day} -name "*.sql" -exec rm -rf {} \;
+    find ${backup_path} -type f -mtime +${reserve_day} -name "*.sql" -exec rm -rf {} \;
     find ${backup_path} -type f -mtime +${reserve_day} -name "*.log" -exec rm -rf {} \;
 fi
