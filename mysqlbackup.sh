@@ -31,26 +31,30 @@ fi
 
 # 开始for循环
 for db in $db_list;do
-# 备份日志文件路径
-dumplog="${backup_path}/${db}_$(date +"%Y%m%d%H%M%S").log"
-# /mysqlbackup/pydev_20221108220739.log
+# 备份日志文件路径 日期没空格不需要引号
+dumplog="${backup_path}/${db}_$(date +%Y%m%d%H%M%S).log"
+# /mysqlbackup/pydev_20221108220739.log / or use $(date +"%F_%H-%M-%S").log
 
-# 记录备份开始时间
-startbackuptime=$(date+"%Y-%m-%d %H:%M:%S")
+# 记录备份开始时间  有空格必须引号
+startbackuptime=$(date +"%Y-%m-%d %H:%M:%S")
 echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ${startbackuptime} start Backup ${db} <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<" >> ${dumplog}
 
 # 开始执行备份
-/usr/bin/mysqldump -u${MYSQL_USER} -p${MYSQL_PASSWORD} -S ${MySQL_Socket} ${db} --log-error=${dumplog} > ${backup_path}/${db}_$(date +"%Y%m%d%H%M%S").sql
+/usr/bin/mysqldump -u${MYSQL_USER} -p${MYSQL_PASSWORD} -S ${MySQL_Socket} --single-transaction --databases ${db} --log-error=${dumplog} > ${backup_path}/${db}_$(date +"%Y%m%d%H%M%S").sql
 
-# 记录备份结束时间
+# 记录备份结束时间 有空格必须引号
 endbackuptime=$(date +"%Y-%m-%d %H:%M:%S")
-echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ${endbackuptime} end Backup ${db_list} <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<" >> ${dumplog}
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ${endbackuptime} end Backup ${db} <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<" >> ${dumplog}
 
 # 结束for循环
 done
 
 # 定期删除sql备份文件及log日志,生产慎用
 if [[ -d ${backup_path} ]];then
-    find ${backup_path} -type f -mtime +${reserve_day} -name "*.sql" -exec rm -rf {} \;
+	find ${backup_path} -type f -mtime +${reserve_day} -name "*.sql" -exec rm -rf {} \;
     find ${backup_path} -type f -mtime +${reserve_day} -name "*.log" -exec rm -rf {} \;
 fi
+
+
+###  使用--single-transaction 通过在一个事务中导出所有表从而创建一个一致性的快照。
+###  禁用--master-data=2参数，不执行 FLUSH TABLES WITH READ LOCK全局锁，防止锁表。
