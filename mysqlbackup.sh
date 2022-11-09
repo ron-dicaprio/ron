@@ -4,6 +4,8 @@
 
 # 环境变量
 source /etc/profile
+# 设置系统打开文件数,解决高并发下too many open files的问题,暂时只在当前shell有效.
+ulimit -HSn 102400
 
 # 定义备份路径
 backup_path="/mysqlbackup"
