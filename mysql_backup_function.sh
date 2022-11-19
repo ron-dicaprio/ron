@@ -2,16 +2,16 @@
 ## Filename : mysql_backup_function.sh
 ## Date     : 2022-11-10
 ## Author   : caitao <caitao@css.com.cn>
-## Desc     : 小型mysql数据库备份脚本
+## Desc     : mysql数据库备份脚本
 
 # 环境变量
 source /etc/profile
-# 设置系统打开文件数,解决高并发下too many open files的问题,在当前shell有效.
+# 设置系统打开文件数,解决高并发下too many open files的问题.仅在当前shell有效.
 ulimit -HSn 102400
 
 # 定义备份路径
 backup_path="/mysqlbackup"
-# 定义需要备份的数据库,如pydev和test两个库
+# 定义需要备份的数据库.如pydev和test这两个库
 db_list="pydev test"
 # 用户
 MYSQL_USER="root"
@@ -38,7 +38,7 @@ function mysql_backup() {
     /usr/bin/mysqldump -u${MYSQL_USER} -p${MYSQL_PASSWORD} -S ${MySQL_Socket} --single-transaction --databases ${db} --log-error=${dumplog} > ${backup_path}/${db}_$(date +%Y%m%d%H%M%S).sql
     # 记录备份结束时间 有空格必须引号
     echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> $(date +"%Y-%m-%d %H:%M:%S") end Backup ${db} <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<" >> ${dumplog}
-    # 结束for循环
+    # 结束循环
     done
 }
 
@@ -48,10 +48,10 @@ function clean_backup_files() {
         find ${backup_path} -type f -mtime +${reserve_day} -name "*.sql" -exec rm -rf {} \;
         find ${backup_path} -type f -mtime +${reserve_day} -name "*.log" -exec rm -rf {} \;
     fi
-
 }
 
 # 执行备份
 mysql_backup
+
 # 清理文件
 clean_backup_files
