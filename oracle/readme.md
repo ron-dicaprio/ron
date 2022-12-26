@@ -58,7 +58,8 @@ alter user scott account unlock;
 
 ## <--! 省政府云机房数据导入导出--> 
 ```sh
-create or replace directory backup_path as '/usr/backup_path'; expdp EPOINTBID_HNJY/11111@EpointA compression=all schemas=EPOINTBID_HNJY dumpfile=EPOINTBID_HNJY2017-12-7.dmp logfile=EPOINTBID_HNJY2017-12-7.log directory=BACKUP_PATH version=11.2.0.1.0
+create or replace directory backup_path as '/usr/backup_path'; 
+expdp EPOINTBID_HNJY/11111@EpointA compression=all schemas=EPOINTBID_HNJY dumpfile=EPOINTBID_HNJY2017-12-7.dmp logfile=EPOINTBID_HNJY2017-12-7.log directory=BACKUP_PATH version=11.2.0.1.0
 ```
 ## <--! Oracle RAC导入 --> 
 ```sh
