@@ -30,6 +30,7 @@ if [ $? -ne 0 ]; then
     exit 1
 else
     echo "login successed!"
+fi
 
 docker pull $3
 if [ $? -ne 0 ]; then
