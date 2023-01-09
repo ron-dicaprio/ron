@@ -26,10 +26,10 @@ TCE_image="ccr.xc01.cloud.scsw.tax/tsf_100004603242/$app_version"
 
 docker login -u admin -p @password docker.cpack.scsta.com
 if [ $? -ne 0 ]; then
-    echo "login error!"
+    echo "cpack Registry login error!"
     exit 1
 else
-    echo "login successed!"
+    echo "cpack Registry login successed!"
 fi
 
 docker pull $3
@@ -41,10 +41,10 @@ else
 
 docker login -u 100004603242 -p @password ccr.xc01.cloud.scsw.tax 
 if [ $? -ne 0 ]; then
-    echo "login error!"
+    echo "TCE Registry login error!"
     exit 1
 else
-    echo "login successed!"
+    echo "TCE Registry login successed!"
     
 docker push $TCE_image
 if [ $? -ne 0 ]; then
