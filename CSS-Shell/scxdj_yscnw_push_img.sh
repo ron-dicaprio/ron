@@ -25,6 +25,12 @@ app_version=${3##*/}
 TCE_image="ccr.xc01.cloud.scsw.tax/tsf_100004603242/$app_version"
 
 docker login -u admin -p @password docker.cpack.scsta.com
+if [ $? -ne 0 ]; then
+    echo "login error!"
+    exit 1
+else
+    echo "login successed!"
+
 docker pull $3
 if [ $? -ne 0 ]; then
     echo "pull image failed"
