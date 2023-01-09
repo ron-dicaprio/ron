@@ -38,12 +38,13 @@ if [ $? -ne 0 ]; then
     exit 1
 else
     echo "login successed!"
-    docker push $TCE_image
-    if [ $? -ne 0 ]; then
-        echo "push images error!"
-        exit 1
-    else
-        echo "push images successed!"
+    
+docker push $TCE_image
+if [ $? -ne 0 ]; then
+    echo "push images error!"
+    exit 1
+else
+    echo "push images successed!"
 
 docker rmi $TCE_image
 docker rmi $3
