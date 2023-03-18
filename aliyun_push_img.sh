@@ -13,7 +13,7 @@ img_ver=`cat /home/sysadmin/img_ver.conf`
 sudo docker build -t registry.cn-hangzhou.aliyuncs.com/cait/docker-tomcat:v$img_ver.0 -f /data/Dockerfile /data/
 
 # docker registry login .
-sudo docker login -u 1102346940@qq.com -p @Caitao628422 registry.cn-hangzhou.aliyuncs.com
+sudo docker login -u <username> -p <password> registry.cn-hangzhou.aliyuncs.com
 # if login .
 if [ $? -ne 0 ]; then
     echo "aliyun registry login error!"
