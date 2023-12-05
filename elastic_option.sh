@@ -7,38 +7,40 @@ methon=$1
 args=$2
 
 ##  验证Root用户
-if [ `id -u` -eq 0 ];then
-  echo -e "\033[33m Current User is Root \033[0m"
-else
-  echo -e "\033[31m Current User is Not Root \033[0m"
-  exit
-fi
+# if [ `id -u` -eq 0 ];then
+#   echo -e "\033[33m Current User is Root \033[0m"
+# else
+#   echo -e "\033[31m Current User is Not Root \033[0m"
+#   exit
+# fi
 
 ## 判断参数个数
 if [ $# != 2 ];then
     echo -e "\033[32m Usage: Input parameter, Example: sh $0 [method] [functhon] \033[0m"
     echo -e "\033[32m sh $0 get index \033[0m"
-    echo -e "\033[32m sh $0 get version \033[0m"
-    echo -e "\033[32m sh $0 get index_name \033[0m"
+    echo -e "\033[32m sh $0 del index_name \033[0m"
     exit 1
 fi
 
-# 定义函数
-## 版本号
+## 查看版本号
 version () {
-	curl -X GET -u $user:$passwd -H "Content-Type:application/json" http://$ip_port/
+	curl -s -X GET -u $user:$passwd -H "Content-Type:application/json" http://$ip_port/
 	}
 ## 全量索引
 all_index () {
-    curl -X GET -u $user:$passwd -H "Content-Type:application/json" http://$ip_port/_cat/indices?v
+    curl -s -X GET -u $user:$passwd -H "Content-Type:application/json" http://$ip_port/_cat/indices?v
 }
 ## 获取索引中的数据
 get_info () {
-    curl -s -X GET -u $user:$passwd -H "Content-Type:application/json" http://$ip_port/$args | jq "."
+    curl -s -X GET -u $user:$passwd -H "Content-Type:application/json" http://$ip_port/$args?pretty
 }
 ## 删除索引中的数据
 del_info () {
-    curl -s -X DELETE -u $user:$passwd -H "Content-Type:application/json" http://$ip_port/$args | jq "."
+    curl -s -X DELETE -u $user:$passwd -H "Content-Type:application/json" http://$ip_port/$args?pretty
+}
+## 
+disk_info () {
+    curl -s -X GET -u $user:$passwd -H "Content-Type:application/json" http://$ip_port/_cat/allocation?v
 }
 
 ## 判断method
@@ -50,17 +52,19 @@ if [ $1 = get ];then
         index)
             all_index
             ;;
+        disk)
+            disk_info
+            ;;
         *)
             get_info
             ;;
     esac
-elif [ $1 = delete ];then
+elif [ $1 = del ];then
     # todo list
     del_info
 else
     echo -e "method $1 not supprot!"
 fi
-
 
 # get ES index, example: xwcjsjjs_service_jkfwqq
 #curl -X GET -u $user:$passwd -H "Content-Type:application/json" http://$ip_port/xwcjsjjs_service_jkfwqq
