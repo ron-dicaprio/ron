@@ -38,7 +38,7 @@ get_info () {
 del_info () {
     curl -s -X DELETE -u $user:$passwd -H "Content-Type:application/json" http://$ip_port/$args?pretty
 }
-## 
+## 获取磁盘用量信息
 disk_info () {
     curl -s -X GET -u $user:$passwd -H "Content-Type:application/json" http://$ip_port/_cat/allocation?v
 }
