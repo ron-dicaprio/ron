@@ -1,5 +1,5 @@
 #!/bin/bash
-# windows下set ff=unix
+# vim下set ff=unix
 ip_port=10.100.9.133:9200
 user=elastic
 passwd=sysadmin
